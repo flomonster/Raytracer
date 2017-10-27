@@ -1,10 +1,11 @@
 # EDITOR
 *.swp
 *~
+\#*\#
 
 # BIN
 *.o
 *.a
 *.so
 *.out
-raytracer
+./raytracer/rt
