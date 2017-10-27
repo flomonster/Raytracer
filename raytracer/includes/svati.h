@@ -98,3 +98,15 @@ typedef struct object
   s_material material;
   s_trian trians[];
 } s_object;
+
+
+typedef struct scene
+{
+  s_camera camera;
+  size_t lights_count;
+  s_lights *lights;
+  size_t objects_count;
+  s_object *objects;
+} s_scene;
+
+s_scene *scene_parse(FILE *fout);
