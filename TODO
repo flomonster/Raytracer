@@ -1,0 +1,24 @@
+This is the list of features to implement:
+
+* Stage 0
+  * [ ] Program options and parameters
+  * [ ] The input file
+  * [ ] Write the ppm output file
+  * [ ] Handle a basic camera
+  * [ ] Object tracing
+  * [ ] Ambient light
+
+* Stage 1
+  * [ ] Camera's position and his field of view
+  * [ ] Material
+  * [ ] Multiple directional lights
+  * [ ] Multiple point lights
+  * [ ] Shadows
+
+* Stage 2
+  * [ ] Specular light
+  * [ ] Phong illumination
+  * [ ] Smooth normals
+  * [ ] Reflection light
+  * [ ] Transparency
+  * [ ] Refraction

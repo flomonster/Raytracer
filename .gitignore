@@ -1,0 +1,10 @@
+# EDITOR
+*.swp
+*~
+
+# BIN
+*.o
+*.a
+*.so
+*.out
+raytracer
