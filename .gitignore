@@ -8,4 +8,4 @@
 *.a
 *.so
 *.out
-./raytracer/rt
+/raytracer/rt
