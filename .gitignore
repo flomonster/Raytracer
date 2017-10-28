@@ -6,6 +6,10 @@
 # BIN
 *.o
 *.a
+*.d
 *.so
 *.out
 /raytracer/rt
+
+# OUTPUT
+*.ppm
