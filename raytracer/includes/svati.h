@@ -77,10 +77,7 @@ typedef struct trian
 
 typedef struct material
 {
-  s_color Ka;
-  s_color Kd;
-  s_color Ks;
-  flt Ns;
+  s_color Ka; s_color Kd; s_color Ks; flt Ns;
   flt Ni;
   flt Nr;
   flt d;
@@ -105,6 +102,7 @@ typedef struct object
   size_t count;
   s_material material;
   s_trian trians[];
+  struct object *next;
 } s_object;
 
 
@@ -113,7 +111,6 @@ typedef struct scene
   s_camera camera;
   size_t lights_count;
   s_light *lights;
-  size_t objects_count;
   s_object *objects;
 } s_scene;
 
