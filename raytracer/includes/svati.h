@@ -5,23 +5,31 @@
 
 typedef double flt;
 
-typedef struct vector3
+typedef struct vect3
 {
   flt x;
   flt y;
   flt z;
-} s_vector3;
+} s_vect3;
 
-typedef s_vector3 s_vector;
+
+#define VECT(X, Y, Z)                           \
+  ((s_vect)                                     \
+  {                                             \
+    (X), (Y), (Z)                               \
+  })
+
+
+typedef s_vect3 s_vect;
 
 
 typedef struct camera
 {
   size_t width;
   size_t height;
-  s_vector pos;
-  s_vector u;
-  s_vector v;
+  s_vect pos;
+  s_vect u;
+  s_vect v;
   flt fov;
 } s_camera;
 
@@ -50,14 +58,14 @@ typedef struct light
     AMBIANT,
   } type;
   s_color color;
-  s_vector data;
+  s_vect data;
 } s_light;
 
 
 typedef struct vertex
 {
-  s_vector v;
-  s_vector vn;
+  s_vect v;
+  s_vect vn;
 } s_vertex;
 
 
