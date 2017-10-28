@@ -2,9 +2,9 @@ This is the list of features to implement:
 
 * Stage 0
   * [x] Program options and parameters
-  * [ ] The input file
-  * [ ] Write the ppm output file
-  * [ ] Handle a basic camera
+  * [x] The input file
+  * [x] Write the ppm output file
+  * [x] Handle a basic camera
   * [ ] Object tracing
   * [ ] Ambient light
 
