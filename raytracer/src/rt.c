@@ -1,6 +1,8 @@
 #include <err.h>
 #include <stdio.h>
 
+#include "svati.h"
+
 int main(int argc, char **argv)
 {
   if (argc != 3)
@@ -20,7 +22,11 @@ int main(int argc, char **argv)
     err(3, "can't open '%s'.", argv[2]);
   }
 
+  s_scene *scene = scene_parse(fin);
+
   // TODO
+
+  scene_destroy(scene);
 
   fclose(fin);
   fclose(fout);
