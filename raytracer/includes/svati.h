@@ -63,8 +63,8 @@ typedef struct vertex
 
 typedef struct trian
 {
-  struct s_vertex vertices[3];
-};
+  s_vertex vertices[3];
+} s_trian;
 
 
 typedef struct material
@@ -96,5 +96,5 @@ typedef struct object
 {
   size_t count;
   s_material material;
-  s_trian trians;
+  s_trian trians[];
 } s_object;
