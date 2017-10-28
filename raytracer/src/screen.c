@@ -9,7 +9,7 @@ s_screen screen_init(const s_camera *cam)
 {
   s_screen ret;
   ret.w = vect_mult(vect_cross(cam->u, cam->v), -1);
-  ret.L = cam->width / (2. * tan(cam->fov / 2.));
+  ret.L = cam->width / (2. * tan(cam->fov / 360. * M_PI));
   ret.C = vect_add(cam->pos, vect_mult(ret.w, ret.L));
   return ret;
 }
