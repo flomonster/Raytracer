@@ -1,7 +1,7 @@
-#include <ppm.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
+#include "ppm.h"
 
 
 s_image *image_alloc(size_t w, size_t h)

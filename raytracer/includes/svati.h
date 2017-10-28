@@ -1,10 +1,11 @@
 #pragma once
 
 
-#include <defs.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <vect.h>
+
+#include "defs.h"
+#include "vect.h"
 
 
 typedef struct camera

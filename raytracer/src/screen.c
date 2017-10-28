@@ -1,7 +1,8 @@
 #include <math.h>
-#include <screen.h>
-#include <vect.h>
-#include <ray.h>
+
+#include "screen.h"
+#include "vect.h"
+#include "ray.h"
 
 
 s_screen screen_init(const s_camera *cam)
@@ -12,6 +13,7 @@ s_screen screen_init(const s_camera *cam)
   ret.C = vect_add(cam->pos, vect_mult(ret.w, ret.L));
   return ret;
 }
+
 
 s_ray screen_raycast(const s_screen *scr, const s_camera *cam,
                      size_t x, size_t y)

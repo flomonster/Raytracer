@@ -1,9 +1,8 @@
 #include <math.h>
-#include <ray.h>
-#include <svati.h>
-
 #include <stdbool.h>
 
+#include "ray.h"
+#include "svati.h"
 
 
 static inline s_vect trian_normal(const s_trian *trian)

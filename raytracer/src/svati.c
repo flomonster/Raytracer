@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <svati.h>
+#include "svati.h"
+
 
 static void scene_lights_expand(s_scene *scene)
 {

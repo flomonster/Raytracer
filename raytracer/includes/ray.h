@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <vect.h>
+#include "vect.h"
 
 
 typedef struct ray

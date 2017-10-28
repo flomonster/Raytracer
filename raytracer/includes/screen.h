@@ -1,10 +1,10 @@
 #pragma once
 
 
-#include <defs.h>
-#include <vect.h>
-#include <svati.h>
-#include <ray.h>
+#include "defs.h"
+#include "vect.h"
+#include "svati.h"
+#include "ray.h"
 
 
 typedef struct screen

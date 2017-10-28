@@ -1,6 +1,6 @@
-#include <vect.h>
 #include <math.h>
 
+#include "vect.h"
 
 
 flt vect_norm(s_vect v)
