@@ -3,6 +3,8 @@
 
 #include "ray.h"
 #include "svati.h"
+#include "defs.h"
+
 
 
 static inline s_vect trian_normal(const s_trian *trian)
@@ -15,7 +17,7 @@ bool same_side(s_vect p1, s_vect p2, s_vect a, s_vect b)
 {
   s_vect cp1 = vect_cross(vect_sub(b, a), vect_sub(p1, a));
   s_vect cp2 = vect_cross(vect_sub(b, a), vect_sub(p2, a));
-  return vect_dot(cp1, cp2) >= 0;
+  return vect_dot(cp1, cp2) + EPSILON > 0;
 }
 
 
@@ -25,7 +27,6 @@ bool point_in_triangle(s_vect p, s_vect a, s_vect b, s_vect c)
          && same_side(p, b, a, c)
          && same_side(p, c, a, b));
 }
-
 
 flt trian_intersect(const s_trian *tri, const s_ray *ray,
                     s_ray *res)
@@ -46,7 +47,7 @@ flt trian_intersect(const s_trian *tri, const s_ray *ray,
   // distance between the ray source and plane intersection
   flt dist = -((vect_dot(n, ray->orig) + d) / denom);
 
-  if (dist < 0)
+  if (dist < EPSILON)
     return INFINITY;
 
   res->orig = vect_add(ray->orig, vect_mult(ray->dir, dist));
