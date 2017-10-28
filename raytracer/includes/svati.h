@@ -41,7 +41,7 @@ typedef struct color
   })
 
 
-typedef struct lights
+typedef struct light
 {
   enum light_type
   {
@@ -51,7 +51,7 @@ typedef struct lights
   } type;
   s_color color;
   s_vector data;
-} s_lights;
+} s_light;
 
 
 typedef struct vertex
@@ -104,7 +104,7 @@ typedef struct scene
 {
   s_camera camera;
   size_t lights_count;
-  s_lights *lights;
+  s_light *lights;
   size_t objects_count;
   s_object *objects;
 } s_scene;
