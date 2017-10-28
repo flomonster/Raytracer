@@ -37,23 +37,27 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
   if (!obj)
     return PIX(0, 0, 0);
 
-  s_color ambient = COLOR(1, 1, 1);;
+  s_color color = COLOR(0, 0, 0);;
 
   for (size_t i = 0; i < scene->lights_count; i++)
     switch (scene->lights[i].type)
     {
+      flt ld;
+      s_color dir;
       case AMBIENT:
-        ambient = color_compose(ambient, scene->lights[i].color);
+        color = color_add(color, color_compose(obj->material.Ka,
+                                               scene->lights[i].color));
       break;
       case DIRECTIONAL:
-        // TODO
+        ld = vect_dot(vect_mult(scene->lights[i].data, -1), nray.dir);
+        dir = color_compose(obj->material.Kd, scene->lights[i].color);
+        color = color_add(color, color_mult(dir, ld));
       break;
       case POINT:
         // TODO
       break;
     }
-
-  return color_compose(obj->material.Ka, ambient);
+  return color;
 }
 
 
