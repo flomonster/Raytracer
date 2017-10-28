@@ -3,7 +3,8 @@ CFLAGS = -Wall -Wextra -Werror -pedantic -std=c99
 CPPFLAGS = -MMD -iquote includes -D_POSIX_C_SOURCE=200809L
 
 vpath %.c src
-OBJS = rt.o screen.o vect.o poly_solve.o svati.o trian.o ppm.o color.o render.o
+OBJS = rt.o screen.o vect.o poly_solve.o svati.o trian.o ppm.o \
+	color.o render.o print.o
 DEPS = $(OBJS:.o=.d)
 
 BIN = rt
