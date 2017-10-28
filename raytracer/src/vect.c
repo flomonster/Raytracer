@@ -2,9 +2,16 @@
 #include <math.h>
 
 
+
+flt vect_norm(s_vect v)
+{
+  return sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
+}
+
+
 s_vect vect_normalize(s_vect v)
 {
-  flt norm = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
+  flt norm = vect_norm(v);
   return VECT(v.x / norm, v.y / norm, v.z / norm);
 }
 
@@ -43,4 +50,10 @@ s_vect vect_mult(s_vect v, flt s)
 flt vect_dot(s_vect a, s_vect b)
 {
   return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+
+flt vect_dist(s_vect a, s_vect b)
+{
+  return vect_norm(vect_sub(b, a));
 }
