@@ -13,9 +13,7 @@ static inline s_vect trian_normal(const s_trian *trian)
 
 static inline bool is_in_triangle(const s_trian *tri, const s_vect *pt)
 {
-  /* https://math.stackexchange.com/questions/4322/
-  **  check-whether-a-point-is-within-a-3d-triangle
-  */
+  // https://math.stackexchange.com/questions/4322/
   const s_vect a = tri->vertices[0].v;
   const s_vect b = tri->vertices[1].v;
   const s_vect c = tri->vertices[2].v;

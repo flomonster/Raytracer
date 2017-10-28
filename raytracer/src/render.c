@@ -50,8 +50,10 @@ s_image *scene_render(s_scene *scene)
   const s_screen scr = screen_init(cam);
   s_image *img = image_alloc(cam->width, cam->height);
 
-  for (size_t y = 0; y < cam->height; y++)
-    for (size_t x = 0; x < cam->width; x++)
+  int h = cam->height;
+  int w = cam->width;
+  for (int y = 0; y < h; y++)
+    for (int x = 0; x < w; x++)
     {
       s_ray ray = screen_raycast(&scr, cam, x, y);
       IMG_AT(img, x, y) = ray_render(&ray, scene);

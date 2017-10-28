@@ -5,6 +5,8 @@
 #include "svati.h"
 #include "render.h"
 #include "ppm.h"
+#include "print.h"
+
 
 int main(int argc, char **argv)
 {
@@ -26,14 +28,12 @@ int main(int argc, char **argv)
   }
 
   s_scene *scene = scene_parse(fin);
-
-  // TODO
-
-  scene_destroy(scene);
-
+  scene_print(scene);
   s_image *img = scene_render(scene);
   image_render(img, fout);
   free(img);
+
+  scene_destroy(scene);
 
   fclose(fin);
   fclose(fout);

@@ -15,4 +15,4 @@ typedef struct screen
 } s_screen;
 
 s_screen screen_init(const s_camera *cam);
-s_ray screen_raycast(const s_screen *scr, const s_camera *cam, size_t x, size_t y);
+s_ray screen_raycast(const s_screen *scr, const s_camera *cam, int x, int y);
