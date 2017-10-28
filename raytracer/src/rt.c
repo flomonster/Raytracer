@@ -28,7 +28,7 @@ int main(int argc, char **argv)
   }
 
   s_scene *scene = scene_parse(fin);
-  scene_print(scene);
+  // scene_print(scene);
   s_image *img = scene_render(scene);
   image_render(img, fout);
   free(img);

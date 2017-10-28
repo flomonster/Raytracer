@@ -9,8 +9,15 @@ DEPS = $(OBJS:.o=.d)
 
 BIN = rt
 
-all: $(BIN)
-all: CFLAGS += -O2
+all: release
+
+lto: CFLAGS += -flto
+lto: LDFLAGS += -flto
+lto: release
+
+release: $(BIN)
+release: CFLAGS += -O3
+
 
 san: CFLAGS += -fsanitize=address -fsanitize=leak -fsanitize=undefined
 san: LDLIBS += -lasan -lubsan
@@ -27,4 +34,4 @@ $(BIN): $(OBJS)
 clean:
 	rm -f $(BIN) $(OBJS)
 
-.PHONY: clean debug all san
+.PHONY: clean debug all san release lto
