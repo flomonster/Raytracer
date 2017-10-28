@@ -9,14 +9,14 @@
 
 s_object *scene_intersection(s_ray *ray, s_scene *scene, s_ray *res)
 {
-  flt dist = -INFINITY;
+  flt dist = INFINITY;
   s_ray best;
   s_object *best_obj = NULL;
   for (s_object *obj = scene->objects; obj; obj = obj->next)
     for (size_t i = 0; i < obj->count; i++)
     {
       flt curdist = trian_intersect(&obj->trians[i], ray, res);
-      if (curdist > dist)
+      if (curdist < dist)
       {
         dist = curdist;
         best = *res;

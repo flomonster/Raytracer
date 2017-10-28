@@ -41,17 +41,17 @@ flt trian_intersect(const s_trian *tri, const s_ray *ray,
 
   flt denom = vect_dot(n, ray->dir);
   if (!denom)
-    return -INFINITY;
+    return INFINITY;
 
   // distance between the ray source and plane intersection
   flt dist = -((vect_dot(n, ray->orig) + d) / denom);
 
   if (dist < 0)
-    return -INFINITY;
+    return INFINITY;
 
   res->orig = vect_add(ray->orig, vect_mult(ray->dir, dist));
   if (!point_in_triangle(res->orig, A, B, C))
-    return -INFINITY;
+    return INFINITY;
 
   res->dir = vect_normalize(n);
   return dist;
