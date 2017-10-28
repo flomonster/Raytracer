@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdio.h>
 
 
 typedef double flt;
@@ -101,8 +102,8 @@ typedef struct object
 {
   size_t count;
   s_material material;
-  s_trian trians[];
   struct object *next;
+  s_trian trians[];
 } s_object;
 
 
@@ -114,4 +115,4 @@ typedef struct scene
   s_object *objects;
 } s_scene;
 
-s_scene *scene_parse(FILE *fout);
+s_scene *scene_parse(FILE *fin);
