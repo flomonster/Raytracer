@@ -18,9 +18,10 @@ s_screen screen_init(const s_camera *cam)
 s_ray screen_raycast(const s_screen *scr, const s_camera *cam,
                      int x, int y)
 {
-  int half_cam = cam->width / 2;
-  s_vect pu = vect_mult(cam->u, (x - half_cam));
-  s_vect pv = vect_mult(cam->v, (y - half_cam));
+  int xo = cam->width / 2;
+  int yo = cam->height / 2;
+  s_vect pu = vect_mult(cam->u, (x - xo));
+  s_vect pv = vect_mult(cam->v, (y - yo));
   s_vect screen_point = vect_add(vect_add(scr->C, pu), pv);
   return RAY(cam->pos, vect_normalize(vect_sub(screen_point, cam->pos)));
 }
