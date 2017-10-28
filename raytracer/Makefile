@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -pedantic -std=c99
 CPPFLAGS = -Iincludes -D_POSIX_C_SOURCE=200809L
 
 vpath %.c src
-OBJS = rt.o screen.o vect.o poly_solve.o svati.o
+OBJS = rt.o screen.o vect.o poly_solve.o svati.o trian.o
 BIN = rt
 
 all: $(BIN)
