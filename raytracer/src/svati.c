@@ -75,6 +75,7 @@ static void object_parse(s_scene *scene, FILE *fin)
   if (fscanf(fin, "%zu", &count) != 1)
   err(2, "svati/object_parse: error parsing object");
 
+  count /= 3;
   s_object *new_object = malloc(sizeof (s_object) + count * sizeof (s_trian));
 
   *new_object = (s_object)
@@ -87,7 +88,7 @@ static void object_parse(s_scene *scene, FILE *fin)
   char name[3];
   size_t v_count = 0;
   size_t vn_count = 0;
-  while ((v_count * 3 != new_object->count || vn_count * 3 != new_object->count)
+  while ((v_count < new_object->count * 3 || vn_count < new_object->count * 3)
          &&fscanf(fin, "%2s", name) == 1)
   {
     if (!strcmp(name, "Ka"))
@@ -137,24 +138,16 @@ static void object_parse(s_scene *scene, FILE *fin)
 
     else if (!strcmp(name, "v"))
     {
-      s_trian *t = &new_object->trians[v_count];
-      if (fscanf(fin, "%lf %lf %lf %*s %lf %lf %lf %*s %lf %lf %lf",
-                 &t->vertices[0].v.x, &t->vertices[0].v.y, &t->vertices[0].v.z,
-                 &t->vertices[1].v.x, &t->vertices[1].v.y, &t->vertices[1].v.z,
-                 &t->vertices[2].v.x, &t->vertices[2].v.y, &t->vertices[2].v.z)
-          != 9)
+      s_vect *t = &new_object->trians[v_count / 3].vertices[v_count % 3].v;
+      if (fscanf(fin, "%lf %lf %lf", &t->x, &t->y, &t->z) != 3)
         err(2, "svati/object_parse: error parsing object");
       v_count++;
     }
 
     else if (!strcmp(name, "vn"))
     {
-      s_trian *t = &new_object->trians[vn_count];
-      if (fscanf(fin, "%lf %lf %lf %*s %lf %lf %lf %*s %lf %lf %lf",
-                 &t->vertices[0].vn.x, &t->vertices[0].vn.y, &t->vertices[0].vn.z,
-                 &t->vertices[1].vn.x, &t->vertices[1].vn.y, &t->vertices[1].vn.z,
-                 &t->vertices[2].vn.x, &t->vertices[2].vn.y, &t->vertices[2].vn.z)
-          != 9)
+      s_vect *t = &new_object->trians[vn_count / 3].vertices[vn_count % 3].vn;
+      if (fscanf(fin, "%lf %lf %lf", &t->x, &t->y, &t->z) != 3)
         err(2, "svati/object_parse: error parsing object");
       vn_count++;
     }
