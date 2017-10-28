@@ -9,8 +9,11 @@ BIN = rt
 all: $(BIN)
 all: CFLAGS += -O2
 
-debug: LDLIBS += -lasan
-debug: CFLAGS += -ggdb -fstack-protector-all -fsanitize=address
+san: CFLAGS += -fsanitize=address -fsanitize=leak -fsanitize=undefined
+san: LDLIBS += -lasan -lubsan
+san: debug
+
+debug: CFLAGS += -ggdb -fstack-protector-all
 debug: $(BIN)
 
 $(BIN): LDLIBS += -lm
@@ -19,4 +22,4 @@ $(BIN): $(OBJS)
 clean:
 	rm -f $(BIN) $(OBJS)
 
-.PHONY: clean debug all
+.PHONY: clean debug all san
