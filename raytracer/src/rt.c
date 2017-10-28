@@ -1,7 +1,10 @@
 #include <err.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "svati.h"
+#include "render.h"
+#include "ppm.h"
 
 int main(int argc, char **argv)
 {
@@ -27,6 +30,10 @@ int main(int argc, char **argv)
   // TODO
 
   scene_destroy(scene);
+
+  s_image *img = scene_render(scene);
+  image_render(img, fout);
+  free(img);
 
   fclose(fin);
   fclose(fout);
