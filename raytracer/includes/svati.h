@@ -99,3 +99,4 @@ typedef struct scene
 } s_scene;
 
 s_scene *scene_parse(FILE *fin);
+void scene_destroy(s_scene *scene);

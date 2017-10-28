@@ -212,3 +212,15 @@ s_scene *scene_parse(FILE *fin)
   }
   return scene;
 }
+
+void scene_destroy(s_scene *scene)
+{
+  free(scene->lights);
+  while (scene->objects)
+  {
+    s_object *obj = scene->objects;
+    scene->objects = scene->objects->next;
+    free(obj);
+  }
+  free(scene);
+}
