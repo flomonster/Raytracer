@@ -38,3 +38,9 @@ s_vect vect_mult(s_vect v, flt s)
               v.y * s,
               v.z * s);
 }
+
+
+flt vect_dot(s_vect a, s_vect b)
+{
+  return a.x * b.x + a.y * b.y + a.z * b.z;
+}

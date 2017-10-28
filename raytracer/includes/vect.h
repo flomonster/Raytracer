@@ -26,3 +26,4 @@ s_vect vect_cross(s_vect a, s_vect b);
 s_vect vect_add(s_vect a, s_vect b);
 s_vect vect_sub(s_vect a, s_vect b);
 s_vect vect_mult(s_vect v, flt s);
+flt vect_dot(s_vect a, s_vect b);
