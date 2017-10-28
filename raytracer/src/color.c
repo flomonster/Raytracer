@@ -17,3 +17,10 @@ s_color color_compose(s_color a, s_color b)
                flt_normalize(a.g * b.g),
                flt_normalize(a.b * b.b));
 }
+
+s_color color_mult(s_color c, flt m)
+{
+  return COLOR(flt_normalize(c.r * m),
+               flt_normalize(c.g * m),
+               flt_normalize(c.b * m));
+}

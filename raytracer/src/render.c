@@ -29,8 +29,6 @@ s_object *scene_intersection(s_ray *ray, s_scene *scene, s_ray *res)
 }
 
 
-
-
 s_pix ray_render(s_ray *ray, s_scene *scene)
 {
   s_ray nray; // normal vector of the intersecting surface
@@ -39,8 +37,23 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
   if (!obj)
     return PIX(0, 0, 0);
 
-  // TODO: compose lights
-  return color_compose(obj->material.Ka, BCOLOR(42, 0, 0));
+  s_color ambient = COLOR(1, 1, 1);;
+
+  for (size_t i = 0; i < scene->lights_count; i++)
+    switch (scene->lights[i].type)
+    {
+      case AMBIENT:
+        ambient = color_compose(ambient, scene->lights[i].color);
+      break;
+      case DIRECTIONAL:
+        // TODO
+      break;
+      case POINT:
+        // TODO
+      break;
+    }
+
+  return color_compose(obj->material.Ka, ambient);
 }
 
 

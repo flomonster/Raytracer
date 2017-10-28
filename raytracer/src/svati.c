@@ -31,7 +31,7 @@ static void ambiant_light_parse(s_scene *scene, FILE *fin)
 
   s_light *new_light = &scene->lights[scene->lights_count++];
 
-  new_light->type = AMBIANT;
+  new_light->type = AMBIENT;
   new_light->data = VECT(0, 0, 0);
 
   if (fscanf(fin, "%lf %lf %lf", &new_light->color.r, &new_light->color.g,

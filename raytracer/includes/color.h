@@ -24,3 +24,4 @@ typedef struct color
 
 
 s_color color_compose(s_color a, s_color b);
+s_color color_mult(s_color c, flt m);

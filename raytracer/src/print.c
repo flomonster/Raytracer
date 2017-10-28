@@ -23,7 +23,7 @@ void light_print(struct light *l)
 {
   printf("%d\n", l->type);
   color_print(&l->color);
-  if (l->type != AMBIANT)
+  if (l->type != AMBIENT)
     vect_print(&l->data);
 }
 

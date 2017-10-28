@@ -6,7 +6,7 @@ This is the list of features to implement:
   * [x] Write the ppm output file
   * [x] Handle a basic camera
   * [ ] Object tracing
-  * [ ] Ambient light
+  * [x] Ambient light
 
 * Stage 1
   * [ ] Camera's position and his field of view

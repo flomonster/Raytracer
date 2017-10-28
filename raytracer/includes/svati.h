@@ -26,7 +26,7 @@ typedef struct light
   {
     DIRECTIONAL,
     POINT,
-    AMBIANT,
+    AMBIENT,
   } type;
   s_color color;
   s_vect data;
