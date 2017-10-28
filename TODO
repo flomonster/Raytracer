@@ -5,14 +5,14 @@ This is the list of features to implement:
   * [x] The input file
   * [x] Write the ppm output file
   * [x] Handle a basic camera
-  * [ ] Object tracing
+  * [x] Object tracing
   * [x] Ambient light
 
 * Stage 1
-  * [ ] Camera's position and his field of view
-  * [ ] Material
-  * [ ] Multiple directional lights
-  * [ ] Multiple point lights
+  * [x] Camera's position and his field of view
+  * [x] Material
+  * [x] Multiple directional lights
+  * [x] Multiple point lights
   * [ ] Shadows
 
 * Stage 2

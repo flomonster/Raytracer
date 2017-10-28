@@ -48,7 +48,10 @@ typedef struct trian
 
 typedef struct material
 {
-  s_color Ka; s_color Kd; s_color Ks; flt Ns;
+  s_color Ka;
+  s_color Kd;
+  s_color Ks;
+  flt Ns;
   flt Ni;
   flt Nr;
   flt d;
