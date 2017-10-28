@@ -37,7 +37,8 @@ static inline bool is_in_triangle(const s_trian *tri, const s_vect *pt)
 }
 
 
-bool trian_intersect(const s_trian *tri, const s_ray *ray, s_ray *res)
+flt trian_intersect(const s_trian *tri, const s_ray *ray,
+                    s_ray *res)
 {
   s_vect n = trian_normal(tri);
   // http://mathworld.wolfram.com/NormalVector.html
@@ -47,18 +48,18 @@ bool trian_intersect(const s_trian *tri, const s_ray *ray, s_ray *res)
 
   flt denom = vect_dot(n, ray->dir);
   if (!denom)
-    return false;
+    return -INFINITY;
 
   // distance between the ray source and plane intersection
   flt dist = -((vect_dot(n, ray->orig) + d) / denom);
 
   if (dist < 0)
-    return false;
+    return -INFINITY;
 
   res->orig = vect_add(ray->orig, vect_mult(ray->dir, dist));
   if (!is_in_triangle(tri, &res->orig))
-    return false;
+    return -INFINITY;
 
   res->dir = vect_normalize(n);
-  return true;
+  return dist;
 }
