@@ -1,27 +1,10 @@
 #pragma once
 
+
+#include <defs.h>
 #include <stddef.h>
 #include <stdio.h>
-
-
-typedef double flt;
-
-typedef struct vect3
-{
-  flt x;
-  flt y;
-  flt z;
-} s_vect3;
-
-
-#define VECT(X, Y, Z)                           \
-  ((s_vect)                                     \
-  {                                             \
-    (X), (Y), (Z)                               \
-  })
-
-
-typedef s_vect3 s_vect;
+#include <vect.h>
 
 
 typedef struct camera
