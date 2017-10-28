@@ -6,6 +6,7 @@
 
 #include "defs.h"
 #include "vect.h"
+#include "color.h"
 
 
 typedef struct camera
@@ -17,21 +18,6 @@ typedef struct camera
   s_vect v;
   flt fov;
 } s_camera;
-
-
-typedef struct color
-{
-  flt r;
-  flt g;
-  flt b;
-} s_color;
-
-
-#define COLOR(R, G, B)                          \
-  ((s_color)                                    \
-  {                                             \
-    (R), (G), (B)                               \
-  })
 
 
 typedef struct light
@@ -98,6 +84,7 @@ typedef struct scene
   s_light *lights;
   s_object *objects;
 } s_scene;
+
 
 s_scene *scene_parse(FILE *fin);
 void scene_destroy(s_scene *scene);
