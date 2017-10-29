@@ -13,7 +13,7 @@ This is the list of features to implement:
   * [x] Material
   * [x] Multiple directional lights
   * [x] Multiple point lights
-  * [ ] Shadows
+  * [x] Shadows
 
 * Stage 2
   * [ ] Specular light
