@@ -54,13 +54,14 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
     return PIX(0, 0, 0);
 
   s_color color = COLOR(0, 0, 0);;
-
+  s_vect cam = vect_normalize(vect_sub(scene->camera.pos, nray.orig));
   for (size_t i = 0; i < scene->lights_count; i++)
     switch (scene->lights[i].type)
     {
       flt ld;
       s_color col;
       s_vect dir;
+      s_vect ref;
       case AMBIENT:
         col = color_compose(scene->lights[i].color, obj->material.Ka);
         color = color_add(color, col);
@@ -69,9 +70,17 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
         if (!is_directional_shadow(nray.orig,
                                   vect_mult(scene->lights[i].data, -1), scene))
         {
-          ld = vect_dot(vect_mult(scene->lights[i].data, -1), nray.dir);
+          dir = vect_normalize(vect_mult(scene->lights[i].data, -1));
+          ld = vect_dot(dir, nray.dir);
           col = color_compose(scene->lights[i].color, obj->material.Kd);
           color = color_add(color, color_mult(col, ld));
+
+          ref = vect_sub(dir, vect_mult(nray.dir, 2 * vect_dot(nray.dir, dir)));
+          ld = pow(vect_dot(ref, cam), obj->material.Ns);
+          if (isnan(ld))
+            ld = 0;
+          col = color_mult(obj->material.Ks, ld);
+          color = color_add(color, col);
         }
       break;
       case POINT:
@@ -83,6 +92,13 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
           ld *= vect_dot(nray.dir, dir);
           col = color_compose(scene->lights[i].color, obj->material.Kd);
           color = color_add(color, color_mult(col, ld));
+
+          ref = vect_sub(dir, vect_mult(nray.dir, 2 * vect_dot(nray.dir, dir)));
+          ld = pow(vect_dot(ref, cam), obj->material.Ns);
+          if (isnan(ld))
+            ld = 0;
+          col = color_mult(obj->material.Ks, ld);
+          color = color_add(color, col);
         }
       break;
     }
