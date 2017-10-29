@@ -7,53 +7,54 @@
 
 
 
-static inline s_vect trian_normal(const s_trian *trian)
+static inline flt same_side(s_vect N, s_vect P, s_vect A, s_vect B)
 {
-  return trian->vertices[0].vn; // TODO: interpolation
+  s_vect edge = vect_sub(B, A);
+  s_vect vp = vect_sub(P, A);
+  s_vect C = vect_cross(edge, vp);
+  return vect_dot(N, C);
 }
 
-
-bool same_side(s_vect p1, s_vect p2, s_vect a, s_vect b)
-{
-  s_vect cp1 = vect_cross(vect_sub(b, a), vect_sub(p1, a));
-  s_vect cp2 = vect_cross(vect_sub(b, a), vect_sub(p2, a));
-  return vect_dot(cp1, cp2) + EPSILON > 0;
-}
-
-
-bool point_in_triangle(s_vect p, s_vect a, s_vect b, s_vect c)
-{
-  return (same_side(p, a, b, c)
-         && same_side(p, b, a, c)
-         && same_side(p, c, a, b));
-}
 
 flt trian_intersect(const s_trian *tri, const s_ray *ray,
                     s_ray *res)
 {
-  s_vect n = trian_normal(tri);
-  // http://mathworld.wolfram.com/NormalVector.html
-  //  n.x * x + n.y * y + n.z * z + (- n.z * z0 - n.x * x0 - n.y * y0) = 0
   s_vect A = tri->vertices[0].v;
   s_vect B = tri->vertices[1].v;
   s_vect C = tri->vertices[2].v;
 
-  flt d = - n.x * A.x - n.y * A.y - n.z * A.z;
+  s_vect N = vect_normalize(vect_cross(vect_sub(A, B), vect_sub(A, C)));
 
-  flt denom = vect_dot(n, ray->dir);
-  if (!denom)
+  // flt denom = vect_dot(N, N);
+
+
+  flt ray_dot_angle = vect_dot(N, ray->dir);
+  if (fabs(ray_dot_angle) < EPSILON)
     return INFINITY;
 
-  // distance between the ray source and plane intersection
-  flt dist = -((vect_dot(n, ray->orig) + d) / denom);
-
-  if (dist < EPSILON)
+  flt d = -vect_dot(N, A);
+  flt t = -(vect_dot(N, ray->orig) + d) / ray_dot_angle;
+  if (t < EPSILON)
     return INFINITY;
 
-  res->orig = vect_add(ray->orig, vect_mult(ray->dir, dist));
-  if (!point_in_triangle(res->orig, A, B, C))
+  s_vect P = vect_add(ray->orig, vect_mult(ray->dir, t));
+
+  if (same_side(N, P, A, B) < -EPSILON)
     return INFINITY;
 
-  res->dir = vect_normalize(n);
-  return dist;
+  if (same_side(N, P, B, C) < -EPSILON)
+    return INFINITY;
+
+  if (same_side(N, P, C, A) < -EPSILON)
+    return INFINITY;
+
+  /* s_vect nA = tri->vertices[0].vn; */
+  /* s_vect nB = tri->vertices[1].vn; */
+  /* s_vect nC = tri->vertices[2].vn; */
+
+  /* res->dir = vect_normalize(vect_add(vect_mult(nA, da), */
+  /*                                    vect_add(vect_mult(nC, dc), */
+  /*                                             vect_mult(nB, db)))); */
+  res->dir = vect_normalize(N);
+  return t;
 }
