@@ -1,0 +1,43 @@
+# Raytracer
+
+This is an EPITA ing1 project.
+The goal of this project is to implement a raytracer.
+We have to render scenes described by a file and save the result in a PPM image.
+
+## Usage
+
+To build the project:
+```
+make all
+```
+
+To build in debug mode:
+```
+make debug
+```
+
+To build with assan:
+```
+make san
+```
+
+To use the program:
+```
+./rt <input file> <output file>
+```
+
+### Files
+
+* The format of the input file is `svati`. This format is described in
+the subject.
+* The format of the output file is `ppm`.
+
+## Architecture
+
+* `./AUTHORS` ................. AUTHORS file.
+* `./README` .................. This file.
+* `./TODO` .................... The list of things to do.
+* `./raytracer/Makefile` ...... The makefile to build the project.
+* `./tests/*` ................. Contains exemples of `.svati` files.
+* `./raytracer/src/*` ......... Contains all the sources.
+* `./raytracer/include/*` ..... Contains all the headers.
