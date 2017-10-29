@@ -1,10 +1,11 @@
+#include <stdbool.h>
 #include <math.h>
 
 #include "ppm.h"
 #include "ray.h"
+#include "screen.h"
 #include "svati.h"
 #include "trian.h"
-#include "screen.h"
 
 
 s_object *scene_intersection(s_ray *ray, s_scene *scene, s_ray *res)
@@ -28,6 +29,12 @@ s_object *scene_intersection(s_ray *ray, s_scene *scene, s_ray *res)
   return best_obj;
 }
 
+static bool is_directional_shadow(s_vect pos, s_vect dir, s_scene *scene)
+{
+  s_ray ray = RAY(pos, dir);
+  s_ray res;
+  return !scene_intersection(&ray, scene, &res);
+}
 
 s_pix ray_render(s_ray *ray, s_scene *scene)
 {
@@ -49,9 +56,12 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
         color = color_add(color, col);
       break;
       case DIRECTIONAL:
-        ld = vect_dot(vect_mult(scene->lights[i].data, -1), nray.dir);
-        col = color_compose(scene->lights[i].color, obj->material.Kd);
-        color = color_add(color, color_mult(col, ld));
+        if (is_directional_shadow(nray.orig, vect_mult(scene->lights[i].data, -1), scene))
+        {
+          ld = vect_dot(vect_mult(scene->lights[i].data, -1), nray.dir);
+          col = color_compose(scene->lights[i].color, obj->material.Kd);
+          color = color_add(color, color_mult(col, ld));
+        }
       break;
       case POINT:
         ld = 1 / vect_dist(scene->lights[i].data, nray.orig);
