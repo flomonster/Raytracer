@@ -33,7 +33,16 @@ static bool is_directional_shadow(s_vect pos, s_vect dir, s_scene *scene)
 {
   s_ray ray = RAY(pos, dir);
   s_ray res;
-  return !scene_intersection(&ray, scene, &res);
+  return scene_intersection(&ray, scene, &res);
+}
+
+static bool is_point_shadow(s_vect pos, s_vect dir, flt dst, s_scene *scene)
+{
+  s_ray ray = RAY(pos, dir);
+  s_ray res;
+  if (!scene_intersection(&ray, scene, &res))
+    return false;
+  return dst > vect_dist(pos, res.orig);
 }
 
 s_pix ray_render(s_ray *ray, s_scene *scene)
@@ -51,12 +60,14 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
     {
       flt ld;
       s_color col;
+      s_vect dir;
       case AMBIENT:
         col = color_compose(scene->lights[i].color, obj->material.Ka);
         color = color_add(color, col);
       break;
       case DIRECTIONAL:
-        if (is_directional_shadow(nray.orig, vect_mult(scene->lights[i].data, -1), scene))
+        if (!is_directional_shadow(nray.orig,
+                                  vect_mult(scene->lights[i].data, -1), scene))
         {
           ld = vect_dot(vect_mult(scene->lights[i].data, -1), nray.dir);
           col = color_compose(scene->lights[i].color, obj->material.Kd);
@@ -64,11 +75,15 @@ s_pix ray_render(s_ray *ray, s_scene *scene)
         }
       break;
       case POINT:
-        ld = 1 / vect_dist(scene->lights[i].data, nray.orig);
-        ld *= vect_dot(nray.dir, vect_normalize(vect_sub(scene->lights[i].data,
-                                                         nray.orig)));
-        col = color_compose(scene->lights[i].color, obj->material.Kd);
-        color = color_add(color, color_mult(col, ld));
+        dir = vect_normalize(vect_sub(scene->lights[i].data, nray.orig));
+        ld = vect_dist(scene->lights[i].data, nray.orig);
+        if (!is_point_shadow(nray.orig, dir, ld, scene))
+        {
+          ld = 1 / ld;
+          ld *= vect_dot(nray.dir, dir);
+          col = color_compose(scene->lights[i].color, obj->material.Kd);
+          color = color_add(color, color_mult(col, ld));
+        }
       break;
     }
 
