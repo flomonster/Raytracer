@@ -15,6 +15,8 @@ static inline flt same_side(s_vect N, s_vect P, s_vect A, s_vect B)
   return vect_dot(N, C);
 }
 
+#define INTER_EPS 0.0001
+
 
 flt trian_intersect(const s_trian *tri, const s_ray *ray,
                     s_ray *res)
@@ -39,13 +41,13 @@ flt trian_intersect(const s_trian *tri, const s_ray *ray,
 
   s_vect P = vect_add(ray->orig, vect_mult(ray->dir, t));
 
-  if (same_side(N, P, A, B) < -EPSILON)
+  if (same_side(N, P, A, B) < -INTER_EPS)
     return INFINITY;
 
-  if (same_side(N, P, B, C) < -EPSILON)
+  if (same_side(N, P, B, C) < -INTER_EPS)
     return INFINITY;
 
-  if (same_side(N, P, C, A) < -EPSILON)
+  if (same_side(N, P, C, A) < -INTER_EPS)
     return INFINITY;
 
   s_vect nA = tri->vertices[0].vn;
