@@ -16,8 +16,8 @@ This is the list of features to implement:
   * [x] Shadows
 
 * Stage 2
-  * [ ] Specular light
-  * [ ] Phong illumination
+  * [x] Specular light
+  * [x] Phong illumination
   * [ ] Smooth normals
   * [ ] Reflection light
   * [ ] Transparency
