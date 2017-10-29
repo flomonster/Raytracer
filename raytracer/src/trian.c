@@ -44,22 +44,22 @@ flt trian_intersect(const s_trian *tri, const s_ray *ray,
   if (same_side(N, P, A, B) < -INTER_EPS)
     return INFINITY;
 
-  if (same_side(N, P, B, C) < -INTER_EPS)
+  /* flt u; */
+  if ((/* u =  */same_side(N, P, B, C)) < -INTER_EPS)
     return INFINITY;
 
-  if (same_side(N, P, C, A) < -INTER_EPS)
+  /* flt v; */
+  if ((/* v =  */same_side(N, P, C, A)) < -INTER_EPS)
     return INFINITY;
 
-  s_vect nA = tri->vertices[0].vn;
-  s_vect nB = tri->vertices[1].vn;
-  s_vect nC = tri->vertices[2].vn;
-  flt da = vect_dist(P, A);
-  flt db = vect_dist(P, B);
-  flt dc = vect_dist(P, C);
+  /* s_vect nA = vect_normalize(tri->vertices[0].vn); */
+  /* s_vect nB = vect_normalize(tri->vertices[1].vn); */
+  /* s_vect nC = vect_normalize(tri->vertices[2].vn); */
 
   res->orig = P;
-  res->dir = vect_normalize(vect_add(vect_mult(nA, da),
-                                     vect_add(vect_mult(nC, dc),
-                                              vect_mult(nB, db))));
+  res->dir = vect_normalize(N);
+  /* res->dir = vect_normalize(vect_add(vect_mult(nA, u), */
+  /*                                    vect_add(vect_mult(nC, v), */
+  /*                                             vect_mult(nB, 1 - u - v)))); */
   return t;
 }
