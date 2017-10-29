@@ -47,14 +47,14 @@ static bool is_point_shadow(s_vect pos, s_vect dir, flt dst, s_scene *scene)
 
 s_pix ray_render(s_ray *ray, s_scene *scene)
 {
-  s_ray nray; // normal vector of the intersecting surface
+  s_ray nray; // intersecting point with the surface
   s_object *obj = scene_intersection(ray, scene, &nray);
 
   if (!obj)
     return PIX(0, 0, 0);
 
   s_color color = COLOR(0, 0, 0);;
-  s_vect cam = vect_normalize(vect_sub(scene->camera.pos, nray.orig));
+  s_vect cam = vect_normalize(vect_sub(nray.orig,scene->camera.pos));
   for (size_t i = 0; i < scene->lights_count; i++)
     switch (scene->lights[i].type)
     {
